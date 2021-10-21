@@ -5,10 +5,13 @@
     },
     "ui": {
       "enabled": true
+    },
+    "auth": {
+      "port": 9099
     }
   },
   "hosting": {
-    "public": "public",
+    "public": "dist",
     "ignore": [
       "firebase.json",
       "**/.*",
