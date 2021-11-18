@@ -25,10 +25,11 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
-const btnIniciarSesion = document.getElementById('btnIniciarSesion');
+const btnIniciarSesion  = document.getElementById('btnIniciarSesion');
 const conSesionIniciada = document.getElementById('conSesionIniciada');
-const conSesionCerrada = document.getElementById('conSesionCerrada');
+const conSesionCerrada  = document.getElementById('conSesionCerrada');
 const detallesDeUsuario = document.getElementById('detallesDeUsuario');
+const cuerpo            = document.getElementById('cuerpo');
 
 
 
@@ -61,20 +62,39 @@ onAuthStateChanged(auth, user => {
     if (user != null) {
         conSesionIniciada.hidden = false;
         conSesionCerrada.hidden = true;
-        detallesDeUsuario.hidden = false;
+        cuerpo.hidden = false;
+        // detallesDeUsuario.hidden = false;
         detallesDeUsuario.innerHTML = `
-            <h3>Hola ${user.displayName}!
-            <p>ID de usuario: ${user.uid}</p>`
+            <h3>Hola ${user.displayName}!</h3>
+            <p>ID de usuario: ${user.uid}</p>`;
     } else {
         conSesionIniciada.hidden = true;
         conSesionCerrada.hidden = false;
-        detallesDeUsuario.hidden = true;
-        detallesDeUsuario.innerHTML = '';
+        cuerpo.hidden = true;
+        // detallesDeUsuario.hidden = true;
+        detallesDeUsuario.innerHTML = `<h3>Inicia Sesión! 👉</h3>`;
     }
-})
+});
 
+document.addEventListener('DOMContentLoaded', () => {
+    new Promise(resolve => { setTimeout(resolve, 1000) })
+        .then(() => {
+            document.querySelector('.pagina').style.display = 'block';
+            document.querySelector('#cargandoPagina').style.display = 'none';
+        });
+});
 
 if (location.hostname === 'localhost')  {
     connectAuthEmulator(auth, 'http://localhost:9099');
     // connectFirestoreEmulator(db,'localhost', 8080);
 }
+
+/* // Funcion que posiblemente sea util en el futuro
+function setVisible(elementOrSelector, visible) {
+    // This bit is so you can pass in the name as a string or the reference directly
+    (typeof elementOrSelector === 'string' ?
+        document.querySelector(elementOrSelector) : elementOrSelector)
+    .style.display =
+        visible ? 'block' : 'none';
+}
+*/
