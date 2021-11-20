@@ -64,9 +64,8 @@ onAuthStateChanged(auth, user => {
         conSesionCerrada.hidden = true;
         cuerpo.hidden = false;
         // detallesDeUsuario.hidden = false;
-        detallesDeUsuario.innerHTML = `
-            <h3>Hola ${user.displayName}!</h3>
-            <p>ID de usuario: ${user.uid}</p>`;
+        detallesDeUsuario.innerHTML = `<h3>Hola ${user.displayName}!</h3>`;
+            // <p>ID de usuario: ${user.uid}</p>
     } else {
         conSesionIniciada.hidden = true;
         conSesionCerrada.hidden = false;
