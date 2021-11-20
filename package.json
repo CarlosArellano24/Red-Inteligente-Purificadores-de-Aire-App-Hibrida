@@ -15,6 +15,10 @@
     "webpack-cli": "^4.9.0"
   },
   "dependencies": {
+    "@capacitor/android": "^3.3.2",
+    "@capacitor/cli": "^3.3.2",
+    "@capacitor/core": "^3.3.2",
+    "@capacitor/ios": "^3.3.2",
     "firebase": "^9.2.0"
   }
 }

@@ -1,0 +1,6 @@
+{
+  "appId": "web.purluft.app",
+  "appName": "PurLuft Network",
+  "webDir": "public",
+  "bundledWebRuntime": false
+}
