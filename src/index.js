@@ -75,6 +75,18 @@ onAuthStateChanged(auth, user => {
     }
 });
 
+// Background task
+
+const buscarConexion = async () => {
+    return new Promise((resolve, reject) => {
+        // placeholder para llamar a bluetooth y conectarse con purificadores
+        console.log('ejecutar accion');
+        resolve(true);
+    });
+}
+
+// Mostrar pagina de carga
+
 document.addEventListener('DOMContentLoaded', () => {
     new Promise(resolve => { setTimeout(resolve, 1000) })
         .then(() => {
@@ -82,6 +94,36 @@ document.addEventListener('DOMContentLoaded', () => {
             document.querySelector('#cargandoPagina').style.display = 'none';
         });
 });
+
+//determinar en que plataforma se trabaja y configurar backgournd fetch 
+
+if (this.platform.is('ios')) {
+    var backgroundFetchConfig = {
+        minimumFetchInterval: 15
+    }
+} else if (this.platform.is('android')) {
+    var backgroundFetchConfig = {
+        minimumFetchInterval: 15,
+        enableHeadless: true,   
+        stopOnTerminate: false, 
+        startOnBoot: true,
+        forceAlarmManager: false,
+        requiredNetworkType: BackgroundFetch.NETWORK_TYPE_NONE,
+        requiresBatteryNotLow: false,
+        requiresCharging: false,
+        requiresDeviceIdle: false,
+        requiresStorageNotLow: false
+    }
+}
+
+let status = BackgroundFetch.configure(backgroundFetchConfig, async (taskId) => {
+        console.log("[Background fetch] taskId: ", taskId);
+        const result = await buscarConexion();
+
+        BackgroundFetch.finish(taskId);
+    }, async (taskId) => {
+        BackgroundFetch.finish(taskId);
+    });
 
 if (location.hostname === 'localhost')  {
     connectAuthEmulator(auth, 'http://localhost:9099');
