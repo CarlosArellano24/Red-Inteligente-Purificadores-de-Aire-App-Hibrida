@@ -11,6 +11,14 @@ import {
     connectAuthEmulator 
 } from 'firebase/auth';
 
+import { 
+    BluetoothSerial 
+} from '@ionic-native/bluetooth-serial';
+
+import {
+    Platform
+} from '@ionic/angular';
+
 const firebaseConfig = {
   apiKey: "AIzaSyB59QXwzGzzlc1DlIq4bn-8rGYNl-YEFIQ",
   authDomain: "red-purificadores.firebaseapp.com",
@@ -75,12 +83,27 @@ onAuthStateChanged(auth, user => {
     }
 });
 
-// Background task
+// Configurar Bluetooth y backgroud task
+
+const platform = Platform();            //Estas lineas causan fallas por las dependencias de Angular, buscar otro metodo para conocer la plataforma
+const bluetooth = BluetoothSerial();
 
 const buscarConexion = async () => {
     return new Promise((resolve, reject) => {
-        // placeholder para llamar a bluetooth y conectarse con purificadores
-        console.log('ejecutar accion');
+        if (bluetooth.isEnabled()) {
+            let dispositivos;
+            bluetooth.list()
+                .then((response) => {
+                    dispositivos = response;
+                });
+        
+            dispositivos.forEach(dispositivo => {
+                if (dispositivo.name === 'PurLuft') {
+                    if (platform.is('ios'))     bluetooth.connect(dispositivo.uuid);
+                    if (platform.is('android')) bluetooth.connect(dispositivo.address);
+                }
+            });
+        }
         resolve(true);
     });
 }
@@ -104,8 +127,8 @@ if (this.platform.is('ios')) {
 } else if (this.platform.is('android')) {
     var backgroundFetchConfig = {
         minimumFetchInterval: 15,
-        enableHeadless: true,   
-        stopOnTerminate: false, 
+        enableHeadless: false,   
+        stopOnTerminate: true, 
         startOnBoot: true,
         forceAlarmManager: false,
         requiredNetworkType: BackgroundFetch.NETWORK_TYPE_NONE,
@@ -122,7 +145,7 @@ let status = BackgroundFetch.configure(backgroundFetchConfig, async (taskId) => 
 
         BackgroundFetch.finish(taskId);
     }, async (taskId) => {
-        BackgroundFetch.finish(taskId);
+        BackgroundFetch.finish(taskId); 
     });
 
 if (location.hostname === 'localhost')  {
