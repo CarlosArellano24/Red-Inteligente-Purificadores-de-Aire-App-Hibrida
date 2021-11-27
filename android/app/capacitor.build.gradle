@@ -9,7 +9,11 @@ android {
 
 apply from: "../capacitor-cordova-android-plugins/cordova.variables.gradle"
 dependencies {
+<<<<<<< HEAD
     implementation project(':transistorsoft-capacitor-background-fetch')
+=======
+
+>>>>>>> Correccion
 
 }
 
