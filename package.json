@@ -11,10 +11,21 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@ionic/v1-toolkit": "3.2.15",
     "webpack": "^5.58.2",
     "webpack-cli": "^4.9.0"
   },
   "dependencies": {
-    "firebase": "^9.2.0"
+    "@capacitor/android": "3.3.2",
+    "@capacitor/cli": "^3.3.2",
+    "@capacitor/core": "^3.3.2",
+    "@capacitor/ios": "3.3.2",
+    "@ionic-native/bluetooth-serial": "^5.36.0",
+    "@ionic-native/core": "^5.36.0",
+    "@ionic/angular": "^5.9.1",
+    "@transistorsoft/capacitor-background-fetch": "0.0.6",
+    "cordova-plugin-bluetooth-serial": "^0.4.7",
+    "firebase": "^9.2.0",
+    "ionic-angular": "^3.9.10"
   }
 }

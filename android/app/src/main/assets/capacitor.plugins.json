@@ -1,0 +1,10 @@
+<<<<<<< HEAD
+[
+	{
+		"pkg": "@transistorsoft/capacitor-background-fetch",
+		"classpath": "com.transistorsoft.bgfetch.capacitor.BackgroundFetchPlugin"
+	}
+]
+=======
+[]
+>>>>>>> Correccion
