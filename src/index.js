@@ -1,3 +1,6 @@
+//Este comentario es un ejemplo de un cambio
+//Otro cambio
+
 import { 
     initializeApp 
 } from "firebase/app";
